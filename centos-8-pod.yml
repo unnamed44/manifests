@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: centos
+  name: centos
+spec:
+  containers:
+  - name: centos
+    image: centos:8
+    imagePullPolicy: IfNotPresent
+    command:
+    - bash
+    - -c
+    - sleep infinity
+    env:
+    - name: TZ
+      value: Europe/Moscow
+    resources:
+      requests:
+        cpu: 100m
+        memory: 200Mi
+      limits:
+        cpu: 1000m
+        memory: 2000Mi
+  dnsPolicy: ClusterFirst
+  nodeSelector:
+    beta.kubernetes.io/os: linux
+    #node-role.kubernetes.io/worker: "true"
+  restartPolicy: Always
+  terminationGracePeriodSeconds: 5
